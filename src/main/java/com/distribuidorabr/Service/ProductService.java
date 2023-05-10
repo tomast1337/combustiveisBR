@@ -3,11 +3,13 @@ package com.distribuidorabr.Service;
 import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.distribuidorabr.DAO.ProductDAO;
 import com.distribuidorabr.Model.Product;
 import com.distribuidorabr.Service.interfaces.ProductServicetIntf;
 
+@Service
 public class ProductService implements ProductServicetIntf{
 
 	@Autowired

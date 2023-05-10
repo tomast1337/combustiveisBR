@@ -3,11 +3,13 @@ package com.distribuidorabr.Service;
 import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.distribuidorabr.DAO.CompanyDAO;
 import com.distribuidorabr.Model.Company;
 import com.distribuidorabr.Service.interfaces.CompanyServiceIntf;
 
+@Service
 public class CompanyService implements CompanyServiceIntf{
 
 	@Autowired
