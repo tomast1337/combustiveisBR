@@ -5,12 +5,25 @@ import java.util.Objects;
 
 import com.distribuidorabr.Model.enums.BusinessRelationship;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name="company")
 public class Company extends Person implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	
+	@Column(nullable=false, length = 100)
 	private String corporateName;
+	
+	@Column(nullable=false, length = 18)
 	private String cnpj;
+	
+	@Enumerated(EnumType.STRING)
 	private BusinessRelationship businessRelationship;
 	
 	public Company() {
@@ -47,7 +60,7 @@ public class Company extends Person implements Serializable{
 	public void setBusinessRelationship(BusinessRelationship businessRelationship) {
 		this.businessRelationship = businessRelationship;
 	}
-
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;

@@ -3,14 +3,28 @@ package com.distribuidorabr.Model;
 import java.io.Serializable;
 import java.util.Objects;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.MappedSuperclass;
+
+@MappedSuperclass
 public abstract class Person implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	protected int id;
+	
+	@Column(nullable=false, length = 100)
 	protected String email;
+	@Column(nullable=false, length = 17)
 	protected String phoneNumber;
+	@Column(nullable=false, length = 30)
 	protected String country;
+	@Column(nullable=false, length = 40)
 	protected String state;
 	
 	public Person () {
