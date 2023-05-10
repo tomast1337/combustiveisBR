@@ -1,18 +1,21 @@
-package com.distribuidorabr.DAO;
+package com.distribuidorabr.Model;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-import com.distribuidorabr.DAO.enums.BusinessRelationship;
+import com.distribuidorabr.Model.enums.BusinessRelationship;
 
-public class Company extends Person{
+public class Company extends Person implements Serializable{
 
 	private static final long serialVersionUID = 1L;
-
+	
 	private String corporateName;
 	private String cnpj;
 	private BusinessRelationship businessRelationship;
 	
-	
+	public Company() {
+		super();
+	}
 
 	public Company(String corporateName, String cnpj, BusinessRelationship businessRelationship) {
 		super();
@@ -63,6 +66,13 @@ public class Company extends Person{
 			return false;
 		Company other = (Company) obj;
 		return Objects.equals(id, other.id);
+	}
+
+	@Override
+	public String toString() {
+		return "Company [corporateName=" + corporateName + ", cnpj=" + cnpj + ", businessRelationship="
+				+ businessRelationship + ", id=" + id + ", email=" + email + ", phoneNumber=" + phoneNumber
+				+ ", country=" + country + ", state=" + state + "]";
 	}
 	
 }

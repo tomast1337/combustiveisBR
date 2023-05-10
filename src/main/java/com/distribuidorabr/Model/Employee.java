@@ -1,10 +1,11 @@
-package com.distribuidorabr.DAO;
+package com.distribuidorabr.Model;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-import com.distribuidorabr.DAO.enums.Role;
+import com.distribuidorabr.Model.enums.Role;
 
-public class Employee extends Person {
+public class Employee extends Person implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 

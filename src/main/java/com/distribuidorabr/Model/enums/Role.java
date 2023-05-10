@@ -1,4 +1,4 @@
-package com.distribuidorabr.DAO.enums;
+package com.distribuidorabr.Model.enums;
 
 public enum Role {
 USER(1), ADMIN(2);

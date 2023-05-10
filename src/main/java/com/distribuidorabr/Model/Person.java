@@ -1,11 +1,10 @@
-package com.distribuidorabr.DAO;
+package com.distribuidorabr.Model;
 
 import java.io.Serializable;
 import java.util.Objects;
 
 public abstract class Person implements Serializable {
 
-	
 	private static final long serialVersionUID = 1L;
 	
 	protected int id;

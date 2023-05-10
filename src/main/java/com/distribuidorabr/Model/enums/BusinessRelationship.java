@@ -1,4 +1,4 @@
-package com.distribuidorabr.DAO.enums;
+package com.distribuidorabr.Model.enums;
 
 public enum BusinessRelationship {
 	CUSTOMER(1), SUPPLIER(2);
