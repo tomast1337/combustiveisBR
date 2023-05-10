@@ -8,11 +8,11 @@ public abstract class Person implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	
-	private int id;
-	private String email;
-	private String phoneNumber;
-	private String country;
-	private String state;
+	protected int id;
+	protected String email;
+	protected String phoneNumber;
+	protected String country;
+	protected String state;
 	
 	public Person () {
 		
