@@ -1,7 +1,9 @@
 package com.distribuidorabr.Model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
 public class Order implements Serializable{
@@ -12,17 +14,19 @@ public class Order implements Serializable{
 	private double totalValue;
 	private Date date;
 	private Company company;
+	private List<Item> items = new ArrayList<>();
 	
 	public Order() {
 		super();
 	}
 
-	public Order(int id, double totalValue, Date date, Company company) {
+	public Order(int id, double totalValue, Date date, Company company, List<Item> items) {
 		super();
 		this.id = id;
 		this.totalValue = totalValue;
 		this.date = date;
 		this.company = company;
+		this.items = items;
 	}
 
 	public int getId() {
@@ -55,6 +59,18 @@ public class Order implements Serializable{
 
 	public void setCompany(Company company) {
 		this.company = company;
+	}
+
+	public List<Item> getItems() {
+		return items;
+	}
+
+	public void addItem(Item item) {
+		items.add(item);
+	}
+	
+	public void removeItem(Item item) {
+		items.remove(item);
 	}
 
 	@Override
