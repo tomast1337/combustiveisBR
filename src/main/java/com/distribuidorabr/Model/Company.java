@@ -15,8 +15,8 @@ import jakarta.persistence.Table;
 @Table(name="company")
 public class Company extends Person implements Serializable{
 
-	private static final long serialVersionUID = 1L;
-	
+	private static final long serialVersionUID = -6987018598290837996L;
+
 	@Column(nullable=false, length = 100)
 	private String corporateName;
 	

@@ -1,8 +1,8 @@
 package com.distribuidorabr.Model;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -23,11 +23,11 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name="order")
+@Table(name="orders")
 public class Order implements Serializable{
 	
-	private static final long serialVersionUID = 1L;
-	
+	private static final long serialVersionUID = -4200924561915341468L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
@@ -35,11 +35,11 @@ public class Order implements Serializable{
 	@Column(nullable=false)
 	private double totalValue;
 	
-	@Column(nullable=false)
-	private Date date;
+	@Column(name="order_date")
+	private LocalDate date;
 	
 	@ManyToOne
-	@JoinColumn(name="id")
+	@JoinColumn
 	private Company company;
 	
 	@OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
@@ -53,7 +53,7 @@ public class Order implements Serializable{
 		super();
 	}
 
-	public Order(int id, double totalValue, Date date, Company company, List<Item> items, OrderType type) {
+	public Order(int id, double totalValue, LocalDate date, Company company, List<Item> items, OrderType type) {
 		super();
 		this.id = id;
 		this.totalValue = totalValue;
@@ -79,11 +79,11 @@ public class Order implements Serializable{
 		this.totalValue = totalValue;
 	}
 
-	public Date getDate() {
+	public LocalDate getDate() {
 		return date;
 	}
 
-	public void setDate(Date date) {
+	public void setDate(LocalDate date) {
 		this.date = date;
 	}
 

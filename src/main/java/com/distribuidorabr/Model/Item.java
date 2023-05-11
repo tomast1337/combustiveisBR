@@ -18,11 +18,11 @@ import jakarta.persistence.Table;
 @Table(name="item")
 public class Item implements Serializable{
 
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 6827554926998959652L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int idItem;
+	private int id;
 	
 	@Column(nullable=false)
 	private int quantity;
@@ -31,19 +31,19 @@ public class Item implements Serializable{
 	private double unitValue;
 	
 	@ManyToOne
-	@JoinColumn(name="id")
+	@JoinColumn
 	@JsonIgnoreProperties("items")
 	private Order order;
 	
 	@ManyToOne
-	@JoinColumn(name = "id")
+	@JoinColumn
 	private Product product;
 	
-	public int getIdItem() {
-		return idItem;
+	public int getId() {
+		return id;
 	}
-	public void setIdItem(int idItem) {
-		this.idItem = idItem;
+	public void setId(int id) {
+		this.id = id;
 	}
 	public int getQuantity() {
 		return quantity;
@@ -71,7 +71,7 @@ public class Item implements Serializable{
 	}
 	@Override
 	public int hashCode() {
-		return Objects.hash(idItem);
+		return Objects.hash(id);
 	}
 	@Override
 	public boolean equals(Object obj) {
@@ -82,11 +82,11 @@ public class Item implements Serializable{
 		if (getClass() != obj.getClass())
 			return false;
 		Item other = (Item) obj;
-		return idItem == other.idItem;
+		return id == other.id;
 	}
 	@Override
 	public String toString() {
-		return "Item [idItem=" + idItem + ", quantity=" + quantity + ", unitValue=" + unitValue + ", order="
+		return "Item [id=" + id + ", quantity=" + quantity + ", unitValue=" + unitValue + ", order="
 				+ order + ", product=" + product + "]";
 	}
 	
