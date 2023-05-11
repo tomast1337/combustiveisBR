@@ -18,11 +18,11 @@ import jakarta.persistence.Table;
 @Table(name="product")
 public class Product implements Serializable {
 	
-	private static final long serialVersionUID = 1L;
-	
+	private static final long serialVersionUID = 923768862566391954L;
+
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private int id;
+	private int idProduct;
 	
 	@Column(length = 30)
 	private String name;
@@ -43,9 +43,9 @@ public class Product implements Serializable {
 		
 	}
 
-	public Product(int id, String name, double stock, double price, double storageCapacity, Category category) {
+	public Product(int idProduct, String name, double stock, double price, double storageCapacity, Category category) {
 		super();
-		this.id = id;
+		this.idProduct = idProduct;
 		this.name = name;
 		this.stock = stock;
 		this.price = price;
@@ -53,12 +53,12 @@ public class Product implements Serializable {
 		this.category = category;
 	}
 
-	public int getId() {
-		return id;
+	public int getIdProduct() {
+		return idProduct;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public void setIdProduct(int idProduct) {
+		this.idProduct = idProduct;
 	}
 
 	public String getName() {
@@ -103,7 +103,7 @@ public class Product implements Serializable {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id);
+		return Objects.hash(idProduct);
 	}
 
 	@Override
@@ -115,12 +115,12 @@ public class Product implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Product other = (Product) obj;
-		return id == other.id;
+		return idProduct == other.idProduct;
 	}
 
 	@Override
 	public String toString() {
-		return "Product [id=" + id + ", name=" + name + ", stock=" + stock + ", price=" + price + ", storageCapacity="
+		return "Product [idProduct=" + idProduct + ", name=" + name + ", stock=" + stock + ", price=" + price + ", storageCapacity="
 				+ storageCapacity + "]";
 	}
 

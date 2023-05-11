@@ -21,8 +21,8 @@ public class ProductService implements ProductServicetIntf{
 	}
 
 	@Override
-	public Product findById(int id) {
-		return dao.findById(id).orElse(null);
+	public Product findById(int idProduct) {
+		return dao.findById(idProduct).orElse(null);
 	}
 
 	@Override
@@ -32,7 +32,7 @@ public class ProductService implements ProductServicetIntf{
 
 	@Override
 	public Product update(Product product) {
-		if(product.getId() != 0 && product.getName() != null) {
+		if(product.getIdProduct() != 0 && product.getName() != null) {
 			return dao.save(product);
 		} else {
 			return null;
