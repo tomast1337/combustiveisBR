@@ -3,27 +3,54 @@ package com.distribuidorabr.Model;
 import java.io.Serializable;
 import java.util.Objects;
 
+import com.distribuidorabr.Model.enums.Category;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name="product")
 public class Product implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
+	
+	@Column(length = 30)
 	private String name;
+	
+	@Column(nullable=false)
 	private double stock;
+	
+	@Column(nullable=false)
 	private double price;
+	
+	@Column(nullable=false)
 	private double storageCapacity;
+	
+	@Enumerated(EnumType.STRING)
+	private Category category;
 	
 	public Product() {
 		
 	}
 
-	public Product(int id, String name, double stock, double price, double storageCapacity) {
+	public Product(int id, String name, double stock, double price, double storageCapacity, Category category) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.stock = stock;
 		this.price = price;
 		this.storageCapacity = storageCapacity;
+		this.category = category;
 	}
 
 	public int getId() {
@@ -64,6 +91,14 @@ public class Product implements Serializable {
 
 	public void setStorageCapacity(double storageCapacity) {
 		this.storageCapacity = storageCapacity;
+	}
+
+	public Category getCategory() {
+		return category;
+	}
+
+	public void setCategory(Category category) {
+		this.category = category;
 	}
 
 	@Override

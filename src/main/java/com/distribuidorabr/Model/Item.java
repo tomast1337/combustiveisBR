@@ -3,20 +3,47 @@ package com.distribuidorabr.Model;
 import java.io.Serializable;
 import java.util.Objects;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name="item")
 public class Item implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 
-	private int idItemOrder;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int idItem;
+	
+	@Column(nullable=false)
 	private int quantity;
+	
+	@Column(nullable=false)
 	private double unitValue;
+	
+	@ManyToOne
+	@JoinColumn(name="id")
+	@JsonIgnoreProperties("items")
 	private Order order;
+	
+	@ManyToOne
+	@JoinColumn(name = "id")
 	private Product product;
-	public int getIdItemOrder() {
-		return idItemOrder;
+	
+	public int getIdItem() {
+		return idItem;
 	}
-	public void setIdItemOrder(int idItemOrder) {
-		this.idItemOrder = idItemOrder;
+	public void setIdItem(int idItem) {
+		this.idItem = idItem;
 	}
 	public int getQuantity() {
 		return quantity;
@@ -44,7 +71,7 @@ public class Item implements Serializable{
 	}
 	@Override
 	public int hashCode() {
-		return Objects.hash(idItemOrder);
+		return Objects.hash(idItem);
 	}
 	@Override
 	public boolean equals(Object obj) {
@@ -55,11 +82,11 @@ public class Item implements Serializable{
 		if (getClass() != obj.getClass())
 			return false;
 		Item other = (Item) obj;
-		return idItemOrder == other.idItemOrder;
+		return idItem == other.idItem;
 	}
 	@Override
 	public String toString() {
-		return "Item [idItemOrder=" + idItemOrder + ", quantity=" + quantity + ", unitValue=" + unitValue + ", order="
+		return "Item [idItem=" + idItem + ", quantity=" + quantity + ", unitValue=" + unitValue + ", order="
 				+ order + ", product=" + product + "]";
 	}
 	

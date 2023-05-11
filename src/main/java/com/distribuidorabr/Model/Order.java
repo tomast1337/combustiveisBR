@@ -6,27 +6,61 @@ import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
+import com.distribuidorabr.Model.enums.OrderType;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name="order")
 public class Order implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
 	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
+	
+	@Column(nullable=false)
 	private double totalValue;
+	
+	@Column(nullable=false)
 	private Date date;
+	
+	@ManyToOne
+	@JoinColumn(name="id")
 	private Company company;
+	
+	@OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
+	@JsonIgnoreProperties("order")
 	private List<Item> items = new ArrayList<>();
+	
+	@Enumerated(EnumType.STRING)
+	private OrderType type;
 	
 	public Order() {
 		super();
 	}
 
-	public Order(int id, double totalValue, Date date, Company company, List<Item> items) {
+	public Order(int id, double totalValue, Date date, Company company, List<Item> items, OrderType type) {
 		super();
 		this.id = id;
 		this.totalValue = totalValue;
 		this.date = date;
 		this.company = company;
 		this.items = items;
+		this.type = type;
 	}
 
 	public int getId() {
@@ -73,6 +107,14 @@ public class Order implements Serializable{
 		items.remove(item);
 	}
 
+	public OrderType getType() {
+		return type;
+	}
+
+	public void setType(OrderType type) {
+		this.type = type;
+	}
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
@@ -92,7 +134,8 @@ public class Order implements Serializable{
 
 	@Override
 	public String toString() {
-		return "Order [id=" + id + ", totalValue=" + totalValue + ", date=" + date + ", company=" + company + "]";
+		return "Order [id=" + id + ", totalValue=" + totalValue + ", date=" + date + ", company=" + company + ", items="
+				+ items + ", type=" + type + "]";
 	}
 	
 }

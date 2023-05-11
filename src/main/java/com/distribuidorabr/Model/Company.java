@@ -20,7 +20,7 @@ public class Company extends Person implements Serializable{
 	@Column(nullable=false, length = 100)
 	private String corporateName;
 	
-	@Column(nullable=false, length = 18)
+	@Column(nullable=false, length = 18, unique=true)
 	private String cnpj;
 	
 	@Enumerated(EnumType.STRING)

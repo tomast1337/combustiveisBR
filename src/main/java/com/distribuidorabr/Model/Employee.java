@@ -5,15 +5,34 @@ import java.util.Objects;
 
 import com.distribuidorabr.Model.enums.Role;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name="employee")
 public class Employee extends Person implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 
+	@Column(nullable=false, length = 100)
 	private String name;
+	
+	@Column(nullable=false, length = 20)
 	private String position;
+	
+	@Column(nullable=false)
 	private boolean status;
+	
+	@Column(nullable=false, length = 15, unique=true)
 	private String cpf;
+	
+	@Column(nullable=false, length=15)
 	private String password;
+	
+	@Enumerated(EnumType.STRING)
 	private Role role;
 	
 	public Employee() {
