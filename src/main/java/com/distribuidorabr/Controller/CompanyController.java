@@ -2,6 +2,7 @@ package com.distribuidorabr.Controller;
 
 import java.util.ArrayList;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,6 +18,7 @@ import com.distribuidorabr.Service.interfaces.CompanyServiceIntf;
 @RestController
 public class CompanyController {
 
+	@Autowired
 	private CompanyServiceIntf service;
 
 	@GetMapping("/companies")
@@ -24,7 +26,7 @@ public class CompanyController {
 		return service.findAll();
 	}
 
-	@GetMapping("/companies/{codigo}")
+	@GetMapping("/companies/id/{codigo}")
 	public ResponseEntity<Company> findById(@PathVariable Integer codigo) {
 		Company res = service.findById(codigo);
 		if (res != null) {
@@ -33,7 +35,7 @@ public class CompanyController {
 		return ResponseEntity.notFound().build();
 	}
 
-	@GetMapping("/companies/{cnp}")
+	@GetMapping("/companies/cnpj/{cnpj}")
 	public ResponseEntity<Company> findByCnpj(@PathVariable String cnpj) {
 		Company res = service.findByCnpj(cnpj);
 		if (res != null) {
@@ -66,7 +68,7 @@ public class CompanyController {
 		return ResponseEntity.ok(null);
 	}
 
-	@GetMapping("/companies/search")
+	@GetMapping("/companies/search/{corporateName}")
 	public ResponseEntity<Company> findByCorporateName(@PathVariable(name = "corporateName") String corporateName) {
 		Company res = service.findByCorporateName(corporateName);
 		if (res != null) {

@@ -50,7 +50,7 @@ public class EmployeeController {
 		return ResponseEntity.ok(null);
 	}
 	
-	@GetMapping("/employee/{codigo}")
+	@GetMapping("/employee/id/{codigo}")
 	public ResponseEntity<Employee> findById(@PathVariable Integer codigo){
 		Employee res = service.findById(codigo);
 		if (res != null) {
@@ -59,7 +59,7 @@ public class EmployeeController {
 		return ResponseEntity.notFound().build();
 	}
 	
-	@GetMapping("/employee/{cpf}")
+	@GetMapping("/employee/cpf/{cpf}")
 	public ResponseEntity<Employee> findByCpf(@PathVariable String cpf){
 		Employee res = service.findByCpf(cpf);
 		if (res != null) {
