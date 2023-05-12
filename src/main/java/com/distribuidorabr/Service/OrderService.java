@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.distribuidorabr.DAO.OrderDAO;
+import com.distribuidorabr.Model.Item;
 import com.distribuidorabr.Model.Order;
 import com.distribuidorabr.Service.interfaces.OrderServiceIntf;
 
@@ -27,6 +28,9 @@ public class OrderService implements OrderServiceIntf{
 
 	@Override
 	public Order save(Order order) {
+		for (Item item : order.getItems()) {
+			item.setOrder(order);
+		}
 		return dao.save(order);
 	}
 

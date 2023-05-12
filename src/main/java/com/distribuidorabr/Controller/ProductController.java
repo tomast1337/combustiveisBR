@@ -2,6 +2,7 @@ package com.distribuidorabr.Controller;
 
 import java.util.ArrayList;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,6 +18,7 @@ import com.distribuidorabr.Service.interfaces.ProductServicetIntf;
 @RestController
 public class ProductController {
 	
+	@Autowired
 	private ProductServicetIntf service;
 	
 	@GetMapping("/products")
@@ -24,7 +26,7 @@ public class ProductController {
 		return service.findAll();
 	}
 	
-	@GetMapping("/products/{codigo}")
+	@GetMapping("/products/{id}")
 	public ResponseEntity<Product> findById(@PathVariable Integer id){
 		Product res = service.findById(id);
 		if (res != null) {
