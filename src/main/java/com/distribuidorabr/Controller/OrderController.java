@@ -24,16 +24,16 @@ public class OrderController {
 		return service.findAll();
 	}
 
-	@GetMapping("/order/{codigo}")
-	public ResponseEntity<Order> findById(@PathVariable Integer codigo) {
-		Order res = service.findById(codigo);
+	@GetMapping("/order/{id}")
+	public ResponseEntity<Order> findById(@PathVariable Integer id) {
+		Order res = service.findById(id);
 		if (res != null) {
 			return ResponseEntity.ok(res);
 		}
 		return ResponseEntity.notFound().build();
 	}
 
-	@PostMapping("/orders")
+	@PostMapping("/order")
 	public ResponseEntity<Order> save(@RequestBody Order order) {
 		return ResponseEntity.ok(service.save(order));
 	}
