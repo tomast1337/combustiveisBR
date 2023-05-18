@@ -9,5 +9,6 @@ import com.distribuidorabr.Model.Company;
 public interface CompanyDAO extends JpaRepository<Company, Integer> {
 
 	Optional<Company> findByCnpj(String cnpj);
+	Optional<Company> findByCorporateNameContaining(String corporateName);
 
 }

@@ -32,7 +32,7 @@ public class CompanyService implements CompanyServiceIntf{
 
 	@Override
 	public Company findByCorporateName(String corporateName) {
-		return dao.findByCnpj(corporateName).orElse(null);
+		return dao.findByCorporateNameContaining(corporateName).orElse(null);
 	}
 	
 	@Override
