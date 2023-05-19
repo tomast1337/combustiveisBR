@@ -17,6 +17,8 @@ import com.distribuidorabr.DTO.EmployeeResponseDTO;
 import com.distribuidorabr.Model.Employee;
 import com.distribuidorabr.Service.interfaces.EmployeeServiceIntf;
 
+import jakarta.validation.Valid;
+
 @RestController
 public class EmployeeController {
 	
@@ -34,7 +36,7 @@ public class EmployeeController {
 	}
 	
 	@PostMapping("/employee")
-	public ResponseEntity<EmployeeResponseDTO> cadastrarNovo(@RequestBody Employee employee) {
+	public ResponseEntity<EmployeeResponseDTO> cadastrarNovo(@Valid @RequestBody Employee employee) {
 		Employee res = service.save(employee);
 		if (res != null) {
 			EmployeeResponseDTO employeeDTO = new EmployeeResponseDTO(res);
@@ -44,7 +46,7 @@ public class EmployeeController {
 	}
 	
 	@PutMapping("/employee")
-	public ResponseEntity<EmployeeResponseDTO> alterar(@RequestBody Employee employee) {
+	public ResponseEntity<EmployeeResponseDTO> alterar(@Valid @RequestBody Employee employee) {
 		Employee res = service.update(employee);
 		if (res != null) {
 			EmployeeResponseDTO employeeDTO = new EmployeeResponseDTO(res);

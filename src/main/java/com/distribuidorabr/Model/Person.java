@@ -22,6 +22,7 @@ public abstract class Person implements Serializable {
 	
 	@Column(nullable=false, length = 100)
 	@Email(message = "Escreva um e-mail válido")
+	@NotEmpty(message="Campo obrigatório")
 	protected String email;
 	
 	@Column(nullable=false, length = 17)
