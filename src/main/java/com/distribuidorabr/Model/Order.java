@@ -21,6 +21,8 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 
 @Entity
 @Table(name="orders")
@@ -33,17 +35,22 @@ public class Order implements Serializable{
 	private int id;
 	
 	@Column(nullable=false)
+	@Positive(message="Insira um valor válido")
+	@NotNull(message="Campo obrigatório")
 	private double totalValue;
 	
 	@Column(name="order_date")
+	@NotNull(message="Campo obrigatório")
 	private LocalDate date;
 	
 	@ManyToOne
 	@JoinColumn
+	@NotNull(message="Campo obrigatório")
 	private Company company;
 	
 	@OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
 	@JsonIgnoreProperties("order")
+	@NotNull(message="Campo obrigatório")
 	private List<Item> items = new ArrayList<>();
 	
 	@Enumerated(EnumType.STRING)

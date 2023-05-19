@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.distribuidorabr.Model.Order;
 import com.distribuidorabr.Service.interfaces.OrderServiceIntf;
 
+import jakarta.validation.Valid;
+
 @RestController
 public class OrderController {
 
@@ -35,8 +37,12 @@ public class OrderController {
 	}
 
 	@PostMapping("/order")
-	public ResponseEntity<Order> save(@RequestBody Order order) {
-		return ResponseEntity.status(HttpStatus.OK).body(service.save(order));
+	public ResponseEntity<Order> save(@Valid @RequestBody Order order) {
+		Order res = service.save(order);
+		if(res != null){
+			return ResponseEntity.status(HttpStatus.OK).body(service.save(order));
+		} 
+		return ResponseEntity.badRequest().build();
 	}
 
 }

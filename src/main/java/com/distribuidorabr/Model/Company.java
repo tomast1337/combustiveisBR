@@ -10,6 +10,9 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name="company")
@@ -18,12 +21,18 @@ public class Company extends Person implements Serializable{
 	private static final long serialVersionUID = -6987018598290837996L;
 
 	@Column(nullable=false, length = 100)
+	@Size(min = 10, max = 200, message 
+    = "Razão social deve conter entre 10 e 100 caracteres")
 	private String corporateName;
 	
 	@Column(nullable=false, length = 18, unique=true)
+	@Size(min = 14, max = 14, message 
+    = "CNPJ deve conter 14 dígitos")
+	@NotEmpty(message="CNPJ é obrigatório")
 	private String cnpj;
 	
 	@Enumerated(EnumType.STRING)
+	@NotNull(message="Campo obrigatório")
 	private BusinessRelationship businessRelationship;
 	
 	public Company() {
