@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.distribuidorabr.Model.Company;
 import com.distribuidorabr.Service.interfaces.CompanyServiceIntf;
 
+import jakarta.validation.Valid;
+
 @RestController
 public class CompanyController {
 
@@ -46,7 +48,7 @@ public class CompanyController {
 	}
 
 	@PostMapping("/companies")
-	public ResponseEntity<Company> save(@RequestBody Company company) {
+	public ResponseEntity<Company> save(@Valid @RequestBody Company company) {
 		Company res = service.save(company);
 		if (res != null) {
 			return ResponseEntity.status(HttpStatus.CREATED).body(res);

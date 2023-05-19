@@ -8,6 +8,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.MappedSuperclass;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotEmpty;
 
 @MappedSuperclass
 public abstract class Person implements Serializable {
@@ -19,12 +21,19 @@ public abstract class Person implements Serializable {
 	protected int id;
 	
 	@Column(nullable=false, length = 100)
+	@Email(message = "Escreva um e-mail válido")
 	protected String email;
+	
 	@Column(nullable=false, length = 17)
+	@NotEmpty(message="Campo obrigatório")
 	protected String phoneNumber;
+	
 	@Column(nullable=false, length = 30)
+	@NotEmpty(message="Campo obrigatório")
 	protected String country;
+	
 	@Column(nullable=false, length = 40)
+	@NotEmpty(message="Campo obrigatório")
 	protected String state;
 	
 	public Person () {
