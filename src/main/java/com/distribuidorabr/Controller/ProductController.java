@@ -3,6 +3,7 @@ package com.distribuidorabr.Controller;
 import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,24 +23,24 @@ public class ProductController {
 	private ProductServicetIntf service;
 	
 	@GetMapping("/products")
-	public ArrayList<Product> findAll(){
-		return service.findAll();
+	public ResponseEntity<ArrayList<Product>> findAll(){
+		return ResponseEntity.status(HttpStatus.OK).body(service.findAll());
 	}
 	
 	@GetMapping("/products/{id}")
 	public ResponseEntity<Product> findById(@PathVariable Integer id){
 		Product res = service.findById(id);
 		if (res != null) {
-			return ResponseEntity.ok(res);
+			return ResponseEntity.status(HttpStatus.OK).body(res);
 		}
-		return ResponseEntity.status(404).build();
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
 	}
 	
 	@PostMapping("/products")
 	public ResponseEntity<Product> save(@RequestBody Product product){
 		Product res = service.save(product);
 		if (res != null) {
-			return ResponseEntity.ok(res);
+			return ResponseEntity.status(HttpStatus.OK).body(res);
 		}
 		return ResponseEntity.badRequest().build();
 	}
@@ -48,7 +49,7 @@ public class ProductController {
 	public ResponseEntity<Product> update(@RequestBody Product product) {
 		Product res = service.update(product);
 		if (res != null) {
-			return ResponseEntity.ok(res);
+			return ResponseEntity.status(HttpStatus.OK).body(res);
 		}
 		return ResponseEntity.badRequest().build();
 	}
@@ -56,7 +57,7 @@ public class ProductController {
 	@DeleteMapping("/products/{id}")
 	public ResponseEntity<Product> delete(@PathVariable Integer id) {
 		service.delete(id);
-		return ResponseEntity.ok(null);
+		return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
 	}
 	
 }

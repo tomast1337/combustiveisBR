@@ -64,7 +64,7 @@ public class Employee extends Person implements Serializable{
 		this.position = position;
 	}
 
-	public boolean isStatus() {
+	public boolean getStatus() {
 		return status;
 	}
 
