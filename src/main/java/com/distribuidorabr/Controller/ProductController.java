@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.distribuidorabr.Model.Product;
 import com.distribuidorabr.Service.interfaces.ProductServicetIntf;
 
+import jakarta.validation.Valid;
+
 @RestController
 public class ProductController {
 	
@@ -36,10 +38,14 @@ public class ProductController {
 	}
 	
 	@PostMapping("/products")
-	public ResponseEntity<Product> save(@RequestBody Product product){
+	public ResponseEntity<Product> save(@Valid @RequestBody Product product){
 		Product res = service.save(product);
 		if (res != null) {
+<<<<<<< Updated upstream
 			return ResponseEntity.ok(res);
+=======
+			return ResponseEntity.status(HttpStatus.OK).body(service.save(product));
+>>>>>>> Stashed changes
 		}
 		return ResponseEntity.badRequest().build();
 	}
