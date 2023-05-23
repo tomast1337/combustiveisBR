@@ -47,12 +47,12 @@ public class ProductService implements ProductServicetIntf{
 	}
 
 	public Product sale(Product product, double quantity) {
-		product.decreaseStock(quantity / 2);
+		product.decreaseStock(quantity);
 		return update(product);
 	}
 	
 	public Product purchase(Product product, double quantity) {
-		product.increaseStock(quantity / 2);
+		product.increaseStock(quantity);
 		return update(product);
 	}
 }

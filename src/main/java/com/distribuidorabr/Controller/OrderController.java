@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.distribuidorabr.Model.Item;
 import com.distribuidorabr.Model.Order;
 import com.distribuidorabr.Service.interfaces.OrderServiceIntf;
 
@@ -40,7 +41,7 @@ public class OrderController {
 	public ResponseEntity<Order> save(@Valid @RequestBody Order order) {
 		Order res = service.save(order);
 		if(res != null){
-			return ResponseEntity.status(HttpStatus.OK).body(service.save(order));
+			return ResponseEntity.status(HttpStatus.OK).body(res);
 		} 
 		return ResponseEntity.badRequest().build();
 	}
