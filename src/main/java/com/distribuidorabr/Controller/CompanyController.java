@@ -3,6 +3,7 @@ package com.distribuidorabr.Controller;
 import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,6 +16,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.distribuidorabr.Model.Company;
 import com.distribuidorabr.Service.interfaces.CompanyServiceIntf;
 
+import jakarta.validation.Valid;
+
 @RestController
 public class CompanyController {
 
@@ -22,15 +25,15 @@ public class CompanyController {
 	private CompanyServiceIntf service;
 
 	@GetMapping("/companies")
-	public ArrayList<Company> findAll() {
-		return service.findAll();
+	public ResponseEntity<ArrayList<Company>> findAll() {
+		return ResponseEntity.status(HttpStatus.OK).body(service.findAll());
 	}
 
-	@GetMapping("/companies/id/{codigo}")
-	public ResponseEntity<Company> findById(@PathVariable Integer codigo) {
-		Company res = service.findById(codigo);
+	@GetMapping("/companies/id/{id}")
+	public ResponseEntity<Company> findById(@PathVariable Integer id) {
+		Company res = service.findById(id);
 		if (res != null) {
-			return ResponseEntity.ok(res);
+			return ResponseEntity.status(HttpStatus.OK).body(res);
 		}
 		return ResponseEntity.notFound().build();
 	}
@@ -39,25 +42,25 @@ public class CompanyController {
 	public ResponseEntity<Company> findByCnpj(@PathVariable String cnpj) {
 		Company res = service.findByCnpj(cnpj);
 		if (res != null) {
-			return ResponseEntity.ok(res);
+			return ResponseEntity.status(HttpStatus.OK).body(res);
 		}
 		return ResponseEntity.notFound().build();
 	}
 
 	@PostMapping("/companies")
-	public ResponseEntity<Company> save(@RequestBody Company company) {
+	public ResponseEntity<Company> save(@Valid @RequestBody Company company) {
 		Company res = service.save(company);
 		if (res != null) {
-			return ResponseEntity.ok(res);
+			return ResponseEntity.status(HttpStatus.CREATED).body(res);
 		}
 		return ResponseEntity.badRequest().build();
 	}
 
 	@PutMapping("/companies")
-	public ResponseEntity<Company> update(@RequestBody Company company) {
+	public ResponseEntity<Company> update(@Valid @RequestBody Company company) {
 		Company res = service.update(company);
 		if (res != null) {
-			return ResponseEntity.ok(res);
+			return ResponseEntity.status(HttpStatus.OK).body(res);
 		}
 		return ResponseEntity.badRequest().build();
 	}
@@ -65,14 +68,14 @@ public class CompanyController {
 	@DeleteMapping("/companies/{id}")
 	public ResponseEntity<Company> delete(@PathVariable Integer id) {
 		service.delete(id);
-		return ResponseEntity.ok(null);
+		return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
 	}
 
 	@GetMapping("/companies/search/{corporateName}")
-	public ResponseEntity<Company> findByCorporateName(@PathVariable(name = "corporateName") String corporateName) {
+	public ResponseEntity<Company> findByCorporateName(@PathVariable String corporateName) {
 		Company res = service.findByCorporateName(corporateName);
 		if (res != null) {
-			return ResponseEntity.ok(res);
+			return ResponseEntity.status(HttpStatus.OK).body(res);
 		}
 		return ResponseEntity.notFound().build();
 	}

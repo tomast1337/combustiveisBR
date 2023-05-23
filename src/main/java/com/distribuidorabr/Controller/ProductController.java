@@ -33,9 +33,9 @@ public class ProductController {
 	public ResponseEntity<Product> findById(@PathVariable Integer id) {
 		Product res = service.findById(id);
 		if (res != null) {
-			return ResponseEntity.ok(res);
+			return ResponseEntity.status(HttpStatus.OK).body(res);
 		}
-		return ResponseEntity.status(404).build();
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
 	}
 
 	@PostMapping("/products")
@@ -51,7 +51,7 @@ public class ProductController {
 	public ResponseEntity<Product> update(@RequestBody Product product) {
 		Product res = service.update(product);
 		if (res != null) {
-			return ResponseEntity.ok(res);
+			return ResponseEntity.status(HttpStatus.OK).body(res);
 		}
 		return ResponseEntity.badRequest().build();
 	}
@@ -59,7 +59,7 @@ public class ProductController {
 	@DeleteMapping("/products/{id}")
 	public ResponseEntity<Product> delete(@PathVariable Integer id) {
 		service.delete(id);
-		return ResponseEntity.ok(null);
+		return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
 	}
 
 }

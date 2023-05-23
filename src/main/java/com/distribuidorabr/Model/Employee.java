@@ -3,6 +3,8 @@ package com.distribuidorabr.Model;
 import java.io.Serializable;
 import java.util.Objects;
 
+import org.hibernate.validator.constraints.br.CPF;
+
 import com.distribuidorabr.Model.enums.Role;
 
 import jakarta.persistence.Column;
@@ -10,6 +12,9 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name="employee")
@@ -18,21 +23,30 @@ public class Employee extends Person implements Serializable{
 	private static final long serialVersionUID = 9049326292090559865L;
 
 	@Column(nullable=false, length = 100)
+	@NotEmpty(message="Campo obrigatório")
+	@Size(max=100, min=10, message="Nome deve conter entre 10 e 100 caracteres")
 	private String name;
 	
 	@Column(nullable=false, length = 20)
+	@NotEmpty(message="Campo obrigatório")
 	private String position;
 	
 	@Column(nullable=false)
+	@NotNull(message="Campo obrigatório")
 	private boolean status;
 	
 	@Column(nullable=false, length = 15, unique=true)
+	@NotEmpty(message="Campo obrigatório")
+	@CPF(message="Necessário CPF válido")
 	private String cpf;
 	
 	@Column(nullable=false, length=15)
+	@NotEmpty(message="Campo obrigatório")
+	@Size(max=15, min=4, message="Senha deve conter entre 4 e 15 caracteres")
 	private String password;
 	
 	@Enumerated(EnumType.STRING)
+	@NotNull(message="Campo obrigatório")
 	private Role role;
 	
 	public Employee() {
@@ -64,7 +78,7 @@ public class Employee extends Person implements Serializable{
 		this.position = position;
 	}
 
-	public boolean isStatus() {
+	public boolean getStatus() {
 		return status;
 	}
 

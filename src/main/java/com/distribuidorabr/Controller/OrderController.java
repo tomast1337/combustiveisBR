@@ -3,6 +3,7 @@ package com.distribuidorabr.Controller;
 import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,6 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.distribuidorabr.Model.Order;
 import com.distribuidorabr.Service.interfaces.OrderServiceIntf;
 
+import jakarta.validation.Valid;
+
 @RestController
 public class OrderController {
 
@@ -20,22 +23,26 @@ public class OrderController {
 	private OrderServiceIntf service;
 
 	@GetMapping("/order")
-	public ArrayList<Order> findAll() {
-		return service.findAll();
+	public ResponseEntity<ArrayList<Order>> findAll() {
+		return ResponseEntity.status(HttpStatus.OK).body(service.findAll());
 	}
 
 	@GetMapping("/order/{id}")
 	public ResponseEntity<Order> findById(@PathVariable Integer id) {
 		Order res = service.findById(id);
 		if (res != null) {
-			return ResponseEntity.ok(res);
+			return ResponseEntity.status(HttpStatus.OK).body(res);
 		}
 		return ResponseEntity.notFound().build();
 	}
 
 	@PostMapping("/order")
-	public ResponseEntity<Order> save(@RequestBody Order order) {
-		return ResponseEntity.ok(service.save(order));
+	public ResponseEntity<Order> save(@Valid @RequestBody Order order) {
+		Order res = service.save(order);
+		if(res != null){
+			return ResponseEntity.status(HttpStatus.OK).body(service.save(order));
+		} 
+		return ResponseEntity.badRequest().build();
 	}
 
 }
