@@ -5,6 +5,7 @@ import java.util.Objects;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -13,8 +14,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Positive;
 
 @Entity
 @Table(name="item")
@@ -27,13 +26,13 @@ public class Item implements Serializable{
 	private int id;
 	
 	@Column(nullable=false)
-	@Positive(message="Insira um valor válido")
-	@NotNull(message="Campo obrigatório")
-	private int quantity;
+	//@Positive(message="Insira um valor válido")
+	//@NotNull(message="Campo obrigatório")
+	private double quantity;
 	
 	@Column(nullable=false)
-	@Positive(message="Insira um valor válido")
-	@NotNull(message="Campo obrigatório")
+	//@Positive(message="Insira um valor válido")
+	//@NotNull(message="Campo obrigatório")
 	private double unitValue;
 	
 	@ManyToOne
@@ -41,9 +40,9 @@ public class Item implements Serializable{
 	@JsonIgnoreProperties("items")
 	private Order order;
 	
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn
-	@NotNull(message="Campo obrigatório")
+	//@NotNull(message="Campo obrigatório")
 	private Product product;
 	
 	public int getId() {
@@ -52,18 +51,20 @@ public class Item implements Serializable{
 	public void setId(int id) {
 		this.id = id;
 	}
-	public int getQuantity() {
+	public double getQuantity() {
 		return quantity;
 	}
-	public void setQuantity(int quantity) {
+	public void setQuantity(double quantity) {
 		this.quantity = quantity;
 	}
 	public double getUnitValue() {
 		return unitValue;
 	}
+	
 	public void setUnitValue(double unitValue) {
 		this.unitValue = unitValue;
 	}
+	
 	public Order getOrder() {
 		return order;
 	}

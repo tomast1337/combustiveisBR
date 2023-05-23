@@ -32,7 +32,7 @@ public class ProductService implements ProductServicetIntf{
 
 	@Override
 	public Product update(Product product) {
-		if(product.getIdProduct() != 0 && product.getName() != null) {
+		if(product.getId() != 0 && product.getName() != null) {
 			return dao.save(product);
 		} else {
 			return null;
@@ -46,4 +46,13 @@ public class ProductService implements ProductServicetIntf{
 		
 	}
 
+	public Product sale(Product product, double quantity) {
+		product.decreaseStock(quantity / 2);
+		return update(product);
+	}
+	
+	public Product purchase(Product product, double quantity) {
+		product.increaseStock(quantity / 2);
+		return update(product);
+	}
 }
