@@ -13,6 +13,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 
 @Entity
 @Table(name="product")
@@ -25,18 +27,25 @@ public class Product implements Serializable {
 	private int idProduct;
 	
 	@Column(length = 30)
+	@NotNull(message="Campo obrigatório")
 	private String name;
 	
 	@Column(nullable=false)
+	@NotNull(message="Campo obrigatório")
 	private double stock;
 	
 	@Column(nullable=false)
+	@Positive(message="Insira um valor válido")
+	@NotNull(message="Campo obrigatório")
 	private double price;
 	
 	@Column(nullable=false)
+	@Positive(message="Insira um valor válido")
+	@NotNull(message="Campo obrigatório")
 	private double storageCapacity;
 	
 	@Enumerated(EnumType.STRING)
+	@NotNull(message="Campo obrigatório")
 	private Category category;
 	
 	public Product() {
