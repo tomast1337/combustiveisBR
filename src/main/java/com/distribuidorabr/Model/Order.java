@@ -1,8 +1,8 @@
 package com.distribuidorabr.Model;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -21,6 +21,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name="orders")
@@ -33,22 +34,19 @@ public class Order implements Serializable{
 	private int id;
 	
 	@Column(nullable=false)
-	//@Positive(message="Insira um valor válido")
-	//@NotNull(message="Campo obrigatório")
 	private double totalValue;
 	
-	@Column(name="order_date")
-	//@NotNull(message="Campo obrigatório")
-	private Date orderDate;
+	@Column(name="order_date", columnDefinition = "DATE")
+	private LocalDate orderDate;
 	
 	@ManyToOne
 	@JoinColumn
-	//@NotNull(message="Campo obrigatório")
+	@NotNull(message="Campo obrigatório")
 	private Company company;
 	
 	@OneToMany(mappedBy = "order", cascade = CascadeType.MERGE)
 	@JsonIgnoreProperties("order")
-	//@NotNull(message="Campo obrigatório")
+	@NotNull(message="Campo obrigatório")
 	private List<Item> items = new ArrayList<>();
 	
 	@Enumerated(EnumType.STRING)
@@ -62,7 +60,7 @@ public class Order implements Serializable{
 		super();
 		this.id = id;
 		this.totalValue = totalValue;
-		this.orderDate = new java.sql.Date(new Date().getTime());
+		this.orderDate = LocalDate.now();
 		this.company = company;
 		this.items = items;
 		this.type = type;
@@ -91,12 +89,12 @@ public class Order implements Serializable{
 		this.totalValue = totalValue;
 	}
 
-	public Date getDate() {
+	public LocalDate getDate() {
 		return orderDate;
 	}
 
 	public void setDate() {
-		this.orderDate = new java.sql.Date(new Date().getTime());
+		this.orderDate = LocalDate.now();
 	}
 
 	public Company getCompany() {

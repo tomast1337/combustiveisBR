@@ -14,6 +14,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 
 @Entity
 @Table(name="item")
@@ -26,13 +28,13 @@ public class Item implements Serializable{
 	private int id;
 	
 	@Column(nullable=false)
-	//@Positive(message="Insira um valor válido")
-	//@NotNull(message="Campo obrigatório")
+	@Positive(message="Insira um valor válido")
+	@NotNull(message="Campo obrigatório")
 	private double quantity;
 	
 	@Column(nullable=false)
-	//@Positive(message="Insira um valor válido")
-	//@NotNull(message="Campo obrigatório")
+	@Positive(message="Insira um valor válido")
+	@NotNull(message="Campo obrigatório")
 	private double unitValue;
 	
 	@ManyToOne
@@ -42,7 +44,7 @@ public class Item implements Serializable{
 	
 	@ManyToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn
-	//@NotNull(message="Campo obrigatório")
+	@NotNull(message="Campo obrigatório")
 	private Product product;
 	
 	public int getId() {

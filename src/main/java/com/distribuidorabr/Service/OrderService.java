@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.distribuidorabr.DAO.ItemDAO;
 import com.distribuidorabr.DAO.OrderDAO;
 import com.distribuidorabr.Model.Item;
 import com.distribuidorabr.Model.Order;
@@ -21,9 +20,6 @@ public class OrderService implements OrderServiceIntf{
 	
 	@Autowired
 	ProductService productService;
-	
-	@Autowired
-	ItemDAO itemDAO;
 	
 	@Override
 	public ArrayList<Order> findAll() {
@@ -47,7 +43,6 @@ public class OrderService implements OrderServiceIntf{
 			 * the item quantity by the price of the product
 			 */
 			item.setUnitValue(item.getQuantity() * product.getPrice());
-			System.out.println(item.getQuantity() + " * " + product.getPrice());
 			/* if the order is a purchase, the product stock will 
 			 * increase according to quantity of the item
 			 */
@@ -66,6 +61,7 @@ public class OrderService implements OrderServiceIntf{
 		 * this attribute is calculated automatically by the method setTotalValue()
 		 */
 		order.setTotalValue();
+		order.setDate();
 		return dao.save(order);
 	}
 
