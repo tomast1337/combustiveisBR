@@ -13,6 +13,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 
@@ -27,7 +29,8 @@ public class Product implements Serializable {
 	private int idProduct;
 	
 	@Column(length = 30)
-	@NotNull(message="Campo obrigatório")
+	@NotEmpty(message="Campo obrigatório")
+	@NotBlank(message="Digite um nome válido")
 	private String name;
 	
 	@Column(nullable=false)
