@@ -38,11 +38,11 @@ public class OrderController {
 
 	@PostMapping("/order")
 	public ResponseEntity<Order> save(@Valid @RequestBody Order order) {
-		Order res = service.save(order);
-		if(res != null){
-			return ResponseEntity.status(HttpStatus.OK).body(service.save(order));
-		} 
-		return ResponseEntity.badRequest().build();
+			Order res = service.save(order);
+			if (res != null) {
+				return ResponseEntity.status(HttpStatus.OK).body(res);
+			}
+			return ResponseEntity.badRequest().build();
 	}
 
 }

@@ -22,7 +22,6 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Positive;
 
 @Entity
 @Table(name="orders")
@@ -35,20 +34,17 @@ public class Order implements Serializable{
 	private int id;
 	
 	@Column(nullable=false)
-	@Positive(message="Insira um valor válido")
-	@NotNull(message="Campo obrigatório")
 	private double totalValue;
 	
-	@Column(name="order_date")
-	@NotNull(message="Campo obrigatório")
-	private LocalDate date;
+	@Column(name="order_date", columnDefinition = "DATE")
+	private LocalDate orderDate;
 	
 	@ManyToOne
 	@JoinColumn
 	@NotNull(message="Campo obrigatório")
 	private Company company;
 	
-	@OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "order", cascade = CascadeType.MERGE)
 	@JsonIgnoreProperties("order")
 	@NotNull(message="Campo obrigatório")
 	private List<Item> items = new ArrayList<>();
@@ -60,11 +56,11 @@ public class Order implements Serializable{
 		super();
 	}
 
-	public Order(int id, double totalValue, LocalDate date, Company company, List<Item> items, OrderType type) {
+	public Order(int id, double totalValue, Company company, List<Item> items, OrderType type) {
 		super();
 		this.id = id;
 		this.totalValue = totalValue;
-		this.date = date;
+		this.orderDate = LocalDate.now();
 		this.company = company;
 		this.items = items;
 		this.type = type;
@@ -82,16 +78,23 @@ public class Order implements Serializable{
 		return totalValue;
 	}
 
-	public void setTotalValue(double totalValue) {
+	/* totalValue is the sum of the unit values 
+	 * ​​of all items in the order
+	 */
+	public void setTotalValue() {
+		double totalValue = 0;
+		for(Item item : items) {
+			totalValue += item.getUnitValue();
+		}
 		this.totalValue = totalValue;
 	}
 
 	public LocalDate getDate() {
-		return date;
+		return orderDate;
 	}
 
-	public void setDate(LocalDate date) {
-		this.date = date;
+	public void setDate() {
+		this.orderDate = LocalDate.now();
 	}
 
 	public Company getCompany() {
@@ -141,7 +144,7 @@ public class Order implements Serializable{
 
 	@Override
 	public String toString() {
-		return "Order [id=" + id + ", totalValue=" + totalValue + ", date=" + date + ", company=" + company + ", items="
+		return "Order [id=" + id + ", totalValue=" + totalValue + ", orderDate=" + orderDate + ", company=" + company + ", items="
 				+ items + ", type=" + type + "]";
 	}
 	

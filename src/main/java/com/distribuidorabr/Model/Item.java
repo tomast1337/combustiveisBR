@@ -5,6 +5,7 @@ import java.util.Objects;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -29,7 +30,7 @@ public class Item implements Serializable{
 	@Column(nullable=false)
 	@Positive(message="Insira um valor válido")
 	@NotNull(message="Campo obrigatório")
-	private int quantity;
+	private double quantity;
 	
 	@Column(nullable=false)
 	@Positive(message="Insira um valor válido")
@@ -41,7 +42,7 @@ public class Item implements Serializable{
 	@JsonIgnoreProperties("items")
 	private Order order;
 	
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn
 	@NotNull(message="Campo obrigatório")
 	private Product product;
@@ -52,18 +53,20 @@ public class Item implements Serializable{
 	public void setId(int id) {
 		this.id = id;
 	}
-	public int getQuantity() {
+	public double getQuantity() {
 		return quantity;
 	}
-	public void setQuantity(int quantity) {
+	public void setQuantity(double quantity) {
 		this.quantity = quantity;
 	}
 	public double getUnitValue() {
 		return unitValue;
 	}
+	
 	public void setUnitValue(double unitValue) {
 		this.unitValue = unitValue;
 	}
+	
 	public Order getOrder() {
 		return order;
 	}

@@ -10,8 +10,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
+
+import com.distribuidorabr.Exceptions.InvalidStockPurchaseException;
+import com.distribuidorabr.Exceptions.InvalidStockSaleException;
 
 @ControllerAdvice
 public class ValidationHandler extends ResponseEntityExceptionHandler{
@@ -29,5 +33,21 @@ public class ValidationHandler extends ResponseEntityExceptionHandler{
 		});
 		return new ResponseEntity<Object>(errors, HttpStatus.BAD_REQUEST);
 	}
-
+	
+	@ExceptionHandler(value = InvalidStockSaleException.class)
+	public ResponseEntity<Object> handleInvalidStockSaleException(InvalidStockSaleException e, WebRequest request){
+		Map<String, String> errorMessage = new HashMap<>();
+		errorMessage.put(e.getMessage(), "insufficient stock");
+		return new ResponseEntity<>(errorMessage, new HttpHeaders(), HttpStatus.BAD_REQUEST);
+		
+	}
+	
+	@ExceptionHandler(value = InvalidStockPurchaseException.class)
+	public ResponseEntity<Object> handleInvalidStockPurchaseException(InvalidStockPurchaseException e, WebRequest request){
+		Map<String, String> errorMessage = new HashMap<>();
+		errorMessage.put(e.getMessage(), "insufficient storage capacity");
+		return new ResponseEntity<>(errorMessage, new HttpHeaders(), HttpStatus.BAD_REQUEST);
+		
+	}
+	
 }

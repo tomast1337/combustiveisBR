@@ -3,6 +3,8 @@ package com.distribuidorabr.Model;
 import java.io.Serializable;
 import java.util.Objects;
 
+import com.distribuidorabr.Exceptions.InvalidStockPurchaseException;
+import com.distribuidorabr.Exceptions.InvalidStockSaleException;
 import com.distribuidorabr.Model.enums.Category;
 
 import jakarta.persistence.Column;
@@ -13,6 +15,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 
@@ -24,14 +27,15 @@ public class Product implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private int idProduct;
+	private int id;
 	
 	@Column(length = 30)
-	@NotNull(message="Campo obrigatório")
+	@NotBlank(message="Digite um nome válido")
 	private String name;
 	
 	@Column(nullable=false)
 	@NotNull(message="Campo obrigatório")
+	@Positive(message="Insira um valor válido")
 	private double stock;
 	
 	@Column(nullable=false)
@@ -52,9 +56,9 @@ public class Product implements Serializable {
 		
 	}
 
-	public Product(int idProduct, String name, double stock, double price, double storageCapacity, Category category) {
+	public Product(int id, String name, double stock, double price, double storageCapacity, Category category) {
 		super();
-		this.idProduct = idProduct;
+		this.id = id;
 		this.name = name;
 		this.stock = stock;
 		this.price = price;
@@ -62,12 +66,12 @@ public class Product implements Serializable {
 		this.category = category;
 	}
 
-	public int getIdProduct() {
-		return idProduct;
+	public int getId() {
+		return id;
 	}
 
-	public void setIdProduct(int idProduct) {
-		this.idProduct = idProduct;
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public String getName() {
@@ -84,6 +88,28 @@ public class Product implements Serializable {
 
 	public void setStock(double stock) {
 		this.stock = stock;
+	}
+	
+	public void increaseStock(double quantity) {
+		validatePurchase(quantity);
+		this.stock += quantity;
+	}
+	
+	public void decreaseStock(double quantity) {
+		validateSale(quantity);
+		this.stock -= quantity;
+	}
+	
+	public void validateSale(double quantity) {
+		if(stock - quantity < 0) {
+			throw new InvalidStockSaleException(getCategory().toString());
+		}
+	}
+	
+	public void validatePurchase(double quantity) {
+		if(stock + quantity > storageCapacity) {
+			throw new InvalidStockPurchaseException(getCategory().toString());
+		}
 	}
 
 	public double getPrice() {
@@ -112,7 +138,7 @@ public class Product implements Serializable {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(idProduct);
+		return Objects.hash(id);
 	}
 
 	@Override
@@ -124,12 +150,12 @@ public class Product implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Product other = (Product) obj;
-		return idProduct == other.idProduct;
+		return id == other.id;
 	}
 
 	@Override
 	public String toString() {
-		return "Product [idProduct=" + idProduct + ", name=" + name + ", stock=" + stock + ", price=" + price + ", storageCapacity="
+		return "Product [id=" + id + ", name=" + name + ", stock=" + stock + ", price=" + price + ", storageCapacity="
 				+ storageCapacity + "]";
 	}
 
