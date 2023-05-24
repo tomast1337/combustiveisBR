@@ -1,11 +1,13 @@
 package com.distribuidorabr.Service;
 
 import java.util.ArrayList;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.distribuidorabr.DAO.EmployeeDAO;
+import com.distribuidorabr.Exceptions.CpfAlreadyRegisteredException;
 import com.distribuidorabr.Model.Employee;
 import com.distribuidorabr.Service.interfaces.EmployeeServiceIntf;
 
@@ -32,7 +34,12 @@ public class EmployeeService implements EmployeeServiceIntf{
 
 	@Override
 	public Employee save(Employee employee) {
-		return dao.save(employee);
+		Optional<Employee> emp = dao.findByCpf(employee.getCpf());
+		if(emp.isPresent()) {
+			throw new CpfAlreadyRegisteredException("CPF já cadastrado");
+		} else {
+			return dao.save(employee);
+		}
 	}
 
 	@Override
