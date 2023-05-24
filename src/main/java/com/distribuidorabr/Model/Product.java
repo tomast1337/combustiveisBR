@@ -35,6 +35,7 @@ public class Product implements Serializable {
 	
 	@Column(nullable=false)
 	@NotNull(message="Campo obrigatório")
+	@Positive(message="Insira um valor válido")
 	private double stock;
 	
 	@Column(nullable=false)

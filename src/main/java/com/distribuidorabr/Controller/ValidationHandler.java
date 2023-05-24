@@ -34,7 +34,7 @@ public class ValidationHandler extends ResponseEntityExceptionHandler{
 		return new ResponseEntity<Object>(errors, HttpStatus.BAD_REQUEST);
 	}
 	
-	@ExceptionHandler(InvalidStockSaleException.class)
+	@ExceptionHandler(value = InvalidStockSaleException.class)
 	public ResponseEntity<Object> handleInvalidStockSaleException(InvalidStockSaleException e, WebRequest request){
 		Map<String, String> errorMessage = new HashMap<>();
 		errorMessage.put(e.getMessage(), "insufficient stock");
@@ -42,7 +42,7 @@ public class ValidationHandler extends ResponseEntityExceptionHandler{
 		
 	}
 	
-	@ExceptionHandler(InvalidStockPurchaseException.class)
+	@ExceptionHandler(value = InvalidStockPurchaseException.class)
 	public ResponseEntity<Object> handleInvalidStockPurchaseException(InvalidStockPurchaseException e, WebRequest request){
 		Map<String, String> errorMessage = new HashMap<>();
 		errorMessage.put(e.getMessage(), "insufficient storage capacity");
