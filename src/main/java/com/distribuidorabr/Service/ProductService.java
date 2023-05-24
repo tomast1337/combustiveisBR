@@ -55,4 +55,5 @@ public class ProductService implements ProductServicetIntf{
 		product.increaseStock(quantity);
 		return update(product);
 	}
+	
 }

@@ -46,13 +46,12 @@ public class OrderService implements OrderServiceIntf{
 			/* if the order is a purchase, the product stock will 
 			 * increase according to quantity of the item
 			 */
-			if(order.getType() == OrderType.PURCHASE) {
+			if(order.getType() == OrderType.PURCHASE) { 
 				productService.purchase(product, item.getQuantity());
 				/* if the order is a sale, the product stock will 
 				 * decrease according to quantity of the item
 				 */
 			} else if(order.getType() == OrderType.SALE){
-				//productService.sale(product, item.getQuantity());
 				productService.sale(product, item.getQuantity());
 			} 
 		}

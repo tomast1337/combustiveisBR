@@ -3,6 +3,8 @@ package com.distribuidorabr.Model;
 import java.io.Serializable;
 import java.util.Objects;
 
+import com.distribuidorabr.Exceptions.InvalidStockPurchaseException;
+import com.distribuidorabr.Exceptions.InvalidStockSaleException;
 import com.distribuidorabr.Model.enums.Category;
 
 import jakarta.persistence.Column;
@@ -88,11 +90,25 @@ public class Product implements Serializable {
 	}
 	
 	public void increaseStock(double quantity) {
+		validatePurchase(quantity);
 		this.stock += quantity;
 	}
 	
 	public void decreaseStock(double quantity) {
+		validateSale(quantity);
 		this.stock -= quantity;
+	}
+	
+	public void validateSale(double quantity) {
+		if(stock - quantity < 0) {
+			throw new InvalidStockSaleException(getCategory().toString());
+		}
+	}
+	
+	public void validatePurchase(double quantity) {
+		if(stock + quantity > storageCapacity) {
+			throw new InvalidStockPurchaseException(getCategory().toString());
+		}
 	}
 
 	public double getPrice() {
