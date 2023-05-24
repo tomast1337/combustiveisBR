@@ -38,6 +38,8 @@ public class EmployeeService implements EmployeeServiceIntf{
 		if(emp.isPresent()) {
 			throw new CpfAlreadyRegisteredException("CPF já cadastrado");
 		} else {
+			//Default Password auto generated
+			employee.setPassword();
 			return dao.save(employee);
 		}
 	}
