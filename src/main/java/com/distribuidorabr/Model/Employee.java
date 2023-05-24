@@ -40,9 +40,9 @@ public class Employee extends Person implements Serializable{
 	@CPF(message="Necessário CPF válido")
 	private String cpf;
 	
-	@Column(nullable=false, length=15)
+	@Column(nullable=false)
 	@NotEmpty(message="Campo obrigatório")
-	@Size(max=15, min=4, message="Senha deve conter entre 4 e 15 caracteres")
+	//@Size(max=15, min=4, message="Senha deve conter entre 4 e 15 caracteres")
 	private String password;
 	
 	@Enumerated(EnumType.STRING)
@@ -98,9 +98,14 @@ public class Employee extends Person implements Serializable{
 		return password;
 	}
 
-	public void setPassword() {
-		// The password generated is the first 5 characters of employee's CPF
-		this.password = getCpf().substring(0, 4);
+	public void setPassword(String password) {
+		this.password = password;
+	}
+	
+	public String generatePassword() {
+		// Default password generated is 
+		//the first 5 characters of employee's CPF
+		return getPassword().substring(0, 6);
 	}
 
 	public Role getRole() {
