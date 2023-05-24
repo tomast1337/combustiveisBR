@@ -98,8 +98,9 @@ public class Employee extends Person implements Serializable{
 		return password;
 	}
 
-	public void setPassword(String password) {
-		this.password = password;
+	public void setPassword() {
+		// The password generated is the first 5 characters of employee's CPF
+		this.password = getCpf().substring(0, 4);
 	}
 
 	public Role getRole() {

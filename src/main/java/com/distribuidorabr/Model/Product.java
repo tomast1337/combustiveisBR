@@ -34,8 +34,8 @@ public class Product implements Serializable {
 	private String name;
 	
 	@Column(nullable=false)
-	@NotNull(message="Campo obrigatório")
 	@Positive(message="Insira um valor válido")
+	@NotNull(message="Campo obrigatório")
 	private double stock;
 	
 	@Column(nullable=false)

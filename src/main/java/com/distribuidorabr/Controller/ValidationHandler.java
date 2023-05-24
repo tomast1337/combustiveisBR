@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+import com.distribuidorabr.Exceptions.CpfAlreadyRegisteredException;
 import com.distribuidorabr.Exceptions.InvalidStockPurchaseException;
 import com.distribuidorabr.Exceptions.InvalidStockSaleException;
 
@@ -46,6 +47,14 @@ public class ValidationHandler extends ResponseEntityExceptionHandler{
 	public ResponseEntity<Object> handleInvalidStockPurchaseException(InvalidStockPurchaseException e, WebRequest request){
 		Map<String, String> errorMessage = new HashMap<>();
 		errorMessage.put(e.getMessage(), "insufficient storage capacity");
+		return new ResponseEntity<>(errorMessage, new HttpHeaders(), HttpStatus.BAD_REQUEST);
+		
+	}
+	
+	@ExceptionHandler(value = CpfAlreadyRegisteredException.class)
+	public ResponseEntity<Object> CpfAlreadyRegisteredException(CpfAlreadyRegisteredException e, WebRequest request){
+		Map<String, String> errorMessage = new HashMap<>();
+		errorMessage.put("CPF", e.getMessage());
 		return new ResponseEntity<>(errorMessage, new HttpHeaders(), HttpStatus.BAD_REQUEST);
 		
 	}
