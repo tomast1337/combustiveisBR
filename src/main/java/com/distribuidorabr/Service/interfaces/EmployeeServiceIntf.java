@@ -12,5 +12,6 @@ public interface EmployeeServiceIntf {
 	public Employee save(Employee employee);
 	public Employee update(Employee employee);
 	public void delete(int id);
+	public Boolean validatePassword(String password, String cpf);
 	
 }
