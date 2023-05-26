@@ -2,10 +2,12 @@ package com.distribuidorabr.Model;
 
 import java.io.Serializable;
 import java.util.Objects;
+import java.util.UUID;
+
+import org.hibernate.annotations.GenericGenerator;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.MappedSuperclass;
 import jakarta.validation.constraints.Email;
@@ -17,8 +19,10 @@ public abstract class Person implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	protected int id;
+	@GeneratedValue(generator = "uuid2")
+	@GenericGenerator(name = "uuid2", strategy = "uuid2")
+	@Column(columnDefinition = "BINARY(16)", updatable = false, nullable = false)
+	protected UUID id;
 	
 	@Column(nullable=false, length = 100)
 	@Email(message = "Escreva um e-mail válido")
@@ -41,10 +45,10 @@ public abstract class Person implements Serializable {
 		
 	}
 	
-	public int getId() {
+	public UUID getId() {
 		return id;
 	}
-	public void setId(int id) {
+	public void setId(UUID id) {
 		this.id = id;
 	}
 	public String getEmail() {

@@ -1,6 +1,7 @@
 package com.distribuidorabr.Controller;
 
 import java.util.ArrayList;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -28,7 +29,7 @@ public class OrderController {
 	}
 
 	@GetMapping("/order/{id}")
-	public ResponseEntity<Order> findById(@PathVariable Integer id) {
+	public ResponseEntity<Order> findById(@PathVariable UUID id) {
 		Order res = service.findById(id);
 		if (res != null) {
 			return ResponseEntity.status(HttpStatus.OK).body(res);

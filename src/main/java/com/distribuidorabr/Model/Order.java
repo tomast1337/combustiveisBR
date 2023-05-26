@@ -5,8 +5,11 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.UUID;
 
-import com.distribuidorabr.Model.enums.OrderType;
+import org.hibernate.annotations.GenericGenerator;
+
+import com.distribuidorabr.enums.OrderType;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.CascadeType;
@@ -15,7 +18,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
@@ -27,11 +29,13 @@ import jakarta.validation.constraints.NotNull;
 @Table(name="orders")
 public class Order implements Serializable{
 	
-	private static final long serialVersionUID = -4200924561915341468L;
+	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	@GeneratedValue(generator = "uuid2")
+	@GenericGenerator(name = "uuid2", strategy = "uuid2")
+	@Column(columnDefinition = "BINARY(16)", updatable = false, nullable = false)
+	private UUID id;
 	
 	@Column(nullable=false)
 	private double totalValue;
@@ -56,7 +60,7 @@ public class Order implements Serializable{
 		super();
 	}
 
-	public Order(int id, double totalValue, Company company, List<Item> items, OrderType type) {
+	public Order(UUID id, double totalValue, Company company, List<Item> items, OrderType type) {
 		super();
 		this.id = id;
 		this.totalValue = totalValue;
@@ -66,11 +70,11 @@ public class Order implements Serializable{
 		this.type = type;
 	}
 
-	public int getId() {
+	public UUID getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(UUID id) {
 		this.id = id;
 	}
 

@@ -2,6 +2,9 @@ package com.distribuidorabr.Model;
 
 import java.io.Serializable;
 import java.util.Objects;
+import java.util.UUID;
+
+import org.hibernate.annotations.GenericGenerator;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -9,7 +12,6 @@ import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
@@ -21,11 +23,13 @@ import jakarta.validation.constraints.Positive;
 @Table(name="item")
 public class Item implements Serializable{
 
-	private static final long serialVersionUID = 6827554926998959652L;
+	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	@GeneratedValue(generator = "uuid2")
+	@GenericGenerator(name = "uuid2", strategy = "uuid2")
+	@Column(columnDefinition = "BINARY(16)", updatable = false, nullable = false)
+	private UUID id;
 	
 	@Column(nullable=false)
 	@Positive(message="Insira um valor válido")
@@ -47,10 +51,10 @@ public class Item implements Serializable{
 	@NotNull(message="Campo obrigatório")
 	private Product product;
 	
-	public int getId() {
+	public UUID getId() {
 		return id;
 	}
-	public void setId(int id) {
+	public void setId(UUID id) {
 		this.id = id;
 	}
 	public double getQuantity() {

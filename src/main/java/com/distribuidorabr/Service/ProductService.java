@@ -1,6 +1,7 @@
 package com.distribuidorabr.Service;
 
 import java.util.ArrayList;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,8 +22,8 @@ public class ProductService implements ProductServicetIntf{
 	}
 
 	@Override
-	public Product findById(int idProduct) {
-		return dao.findById(idProduct).orElse(null);
+	public Product findById(UUID id) {
+		return dao.findById(id).orElse(null);
 	}
 
 	@Override
@@ -32,7 +33,7 @@ public class ProductService implements ProductServicetIntf{
 
 	@Override
 	public Product update(Product product) {
-		if(product.getId() != 0 && product.getName() != null) {
+		if(product.getId() != null && product.getName() != null) {
 			return dao.save(product);
 		} else {
 			return null;
@@ -41,7 +42,7 @@ public class ProductService implements ProductServicetIntf{
 	}
 
 	@Override
-	public void delete(int id) {
+	public void delete(UUID id) {
 		dao.deleteById(id);
 		
 	}
