@@ -1,6 +1,7 @@
 package com.distribuidorabr.Service;
 
 import java.util.ArrayList;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,7 +22,7 @@ public class CompanyService implements CompanyServiceIntf{
 	}
 
 	@Override
-	public Company findById(int id) {
+	public Company findById(UUID id) {
 		return dao.findById(id).orElse(null);
 	}
 
@@ -43,7 +44,7 @@ public class CompanyService implements CompanyServiceIntf{
 	@Override
 	public Company update(Company employee) {
 		
-		if(employee.getId() != 0 && employee.getCorporateName() != null) {
+		if(employee.getId() != null && employee.getCorporateName() != null) {
 			return dao.save(employee);
 		} else {
 			return null;
@@ -52,7 +53,7 @@ public class CompanyService implements CompanyServiceIntf{
 	}
 
 	@Override
-	public void delete(int id) {
+	public void delete(UUID id) {
 		dao.deleteById(id);
 	}
 

@@ -1,6 +1,7 @@
 package com.distribuidorabr.Service;
 
 import java.util.ArrayList;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,8 +10,8 @@ import com.distribuidorabr.DAO.OrderDAO;
 import com.distribuidorabr.Model.Item;
 import com.distribuidorabr.Model.Order;
 import com.distribuidorabr.Model.Product;
-import com.distribuidorabr.Model.enums.OrderType;
 import com.distribuidorabr.Service.interfaces.OrderServiceIntf;
+import com.distribuidorabr.enums.OrderType;
 
 @Service
 public class OrderService implements OrderServiceIntf{
@@ -27,7 +28,7 @@ public class OrderService implements OrderServiceIntf{
 	}
 
 	@Override
-	public Order findById(int id) {
+	public Order findById(UUID id) {
 		return dao.findById(id).orElse(null);
 	}
 

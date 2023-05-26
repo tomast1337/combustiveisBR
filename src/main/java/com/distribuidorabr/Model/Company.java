@@ -5,7 +5,7 @@ import java.util.Objects;
 
 import org.hibernate.validator.constraints.br.CNPJ;
 
-import com.distribuidorabr.Model.enums.BusinessRelationship;
+import com.distribuidorabr.enums.BusinessRelationship;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -20,7 +20,7 @@ import jakarta.validation.constraints.Size;
 @Table(name="company")
 public class Company extends Person implements Serializable{
 
-	private static final long serialVersionUID = -6987018598290837996L;
+	private static final long serialVersionUID = 1L;
 
 	@Column(nullable=false, length = 100)
 	@Size(min = 10, max = 200, message 
@@ -91,13 +91,6 @@ public class Company extends Person implements Serializable{
 			return false;
 		Company other = (Company) obj;
 		return Objects.equals(id, other.id);
-	}
-
-	@Override
-	public String toString() {
-		return "Company [corporateName=" + corporateName + ", cnpj=" + cnpj + ", businessRelationship="
-				+ businessRelationship + ", id=" + id + ", email=" + email + ", phoneNumber=" + phoneNumber
-				+ ", country=" + country + ", state=" + state + "]";
 	}
 	
 }

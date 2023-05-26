@@ -1,7 +1,7 @@
 package com.distribuidorabr.Controller;
 
 import java.util.ArrayList;
-import java.util.Optional;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -58,13 +58,13 @@ public class EmployeeController {
 	}
 
 	@DeleteMapping("/employee/{id}")
-	public ResponseEntity<EmployeeResponseDTO> delete(@PathVariable Integer id) {
+	public ResponseEntity<EmployeeResponseDTO> delete(@PathVariable UUID id) {
 		service.delete(id);
 		return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
 	}
 
 	@GetMapping("/employee/id/{id}")
-	public ResponseEntity<EmployeeResponseDTO> findById(@PathVariable Integer id) {
+	public ResponseEntity<EmployeeResponseDTO> findById(@PathVariable UUID id) {
 		Employee res = service.findById(id);
 		if (res != null) {
 			return ResponseEntity.status(HttpStatus.OK).body(new EmployeeResponseDTO(res));

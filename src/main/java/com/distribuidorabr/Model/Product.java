@@ -2,17 +2,19 @@ package com.distribuidorabr.Model;
 
 import java.io.Serializable;
 import java.util.Objects;
+import java.util.UUID;
+
+import org.hibernate.annotations.GenericGenerator;
 
 import com.distribuidorabr.Exceptions.InvalidStockPurchaseException;
 import com.distribuidorabr.Exceptions.InvalidStockSaleException;
-import com.distribuidorabr.Model.enums.Category;
+import com.distribuidorabr.enums.Category;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
@@ -23,11 +25,13 @@ import jakarta.validation.constraints.Positive;
 @Table(name="product")
 public class Product implements Serializable {
 	
-	private static final long serialVersionUID = 923768862566391954L;
+	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private int id;
+	@GeneratedValue(generator = "uuid2")
+	@GenericGenerator(name = "uuid2", strategy = "uuid2")
+	@Column(columnDefinition = "BINARY(16)", updatable = false, nullable = false)
+	private UUID id;
 	
 	@Column(length = 30)
 	@NotBlank(message="Digite um nome válido")
@@ -56,7 +60,7 @@ public class Product implements Serializable {
 		
 	}
 
-	public Product(int id, String name, double stock, double price, double storageCapacity, Category category) {
+	public Product(UUID id, String name, double stock, double price, double storageCapacity, Category category) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -66,11 +70,11 @@ public class Product implements Serializable {
 		this.category = category;
 	}
 
-	public int getId() {
+	public UUID getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(UUID id) {
 		this.id = id;
 	}
 

@@ -2,6 +2,7 @@ package com.distribuidorabr.Service;
 
 import java.util.ArrayList;
 import java.util.Optional;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -31,7 +32,7 @@ public class EmployeeService implements EmployeeServiceIntf{
 	}
 
 	@Override
-	public Employee findById(int id) {
+	public Employee findById(UUID id) {
 		return dao.findById(id).orElse(null);
 	}
 
@@ -61,7 +62,7 @@ public class EmployeeService implements EmployeeServiceIntf{
 	@Override
 	public Employee update(Employee employee) {
 		
-		if(employee.getId() != 0 && employee.getName() != null) {
+		if(employee.getId() != null && employee.getName() != null) {
 			employee.setPassword(encoder.encode(employee.getPassword()));
 			return dao.save(employee);
 		} else {
@@ -71,7 +72,7 @@ public class EmployeeService implements EmployeeServiceIntf{
 	}
 
 	@Override
-	public void delete(int id) {
+	public void delete(UUID id) {
 		dao.deleteById(id);
 	}
 
